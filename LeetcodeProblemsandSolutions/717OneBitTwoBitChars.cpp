@@ -2,7 +2,7 @@
  *	We have two special characters. 
  *  First can be represented by 1 bit and the second with 2 bits. (10 or 11)
  *  Now given a string represented by several bits. Check if the last character must 
- *  be One bit or Wwo bits
+ *  be One bit or Two bits
  *
  * Example:	
  * 			Input: bits = [1, 0, 0]
