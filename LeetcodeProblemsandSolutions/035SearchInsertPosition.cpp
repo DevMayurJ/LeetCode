@@ -62,7 +62,7 @@ public:
 		int iSize = vctNums.size();
 		
 	    	if (iTarget > vctNums[iSize - 1])
-			return vctNums.size();
+			return iSize;
 					
 	        int i;
 		
