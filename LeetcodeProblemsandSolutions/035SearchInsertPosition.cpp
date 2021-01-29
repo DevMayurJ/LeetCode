@@ -51,7 +51,28 @@ public:
 			}
 		}   //while
 
-		return iLeft;;
+		return iLeft;
+	}
+	
+	int searchInsert_1(vector<int>& vctNums, int iTarget) 
+	{
+		if(vctNums.empty())
+	   		return 0;
+			
+		int iSize = vctNums.size();
+		
+	    	if (iTarget > vctNums[iSize - 1])
+			return vctNums.size();
+					
+	        int i;
+		
+	        for(i = 0; i < iSize && vctNums[i] <= iTarget; ++i)
+	        {
+	            if(vctNums[i] == iTarget)
+	                 break;      
+	        }
+		        
+	        return i;
 	}
 };
 
@@ -71,7 +92,8 @@ int main()
 		1,
 		0,
 		7,
-		2
+		2,
+		5
 	};
 
 	Solution objSolution;
@@ -85,7 +107,9 @@ int main()
 
 		cout << endl << "TestValue: " << it;
 		int iRet = objSolution.searchInsert(vctInput.at(0), it);
+		int iRet_1 = objSolution.searchInsert_1(vctInput.at(0), it);
 		cout << endl << "Output: " << iRet;
+		cout << endl << "Output: " << iRet_1;
 		cout << endl;
 	}
 }
@@ -106,4 +130,8 @@ Output: 4
 Input: 1        3       5       6
 TestValue: 2
 Output: 1
+
+Input: 1        3       5       6
+TestValue: 5
+Output: 2
 */
