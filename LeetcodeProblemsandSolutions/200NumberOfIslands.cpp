@@ -49,7 +49,7 @@ class Solution
 			
 			void CheckForIsland(vector<vector<char>>& vctGrid, int i, int j)
 			{
-				if(j<0 || j >=vctGrid[i].size() || i < 0 || i >=vctGrid.size() || vctGrid[i][j] == '0')
+				if(i < 0 || i >=vctGrid.size() || j<0 || j >=vctGrid[i].size() || vctGrid[i][j] == '0')
 					return;
 				
 				vctGrid[i][j] = '0';	// Make the '1' we found '0'  
