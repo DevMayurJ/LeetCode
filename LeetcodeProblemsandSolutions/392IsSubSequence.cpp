@@ -47,9 +47,9 @@ class Solution
 		
 		int SearchCharInString(char ch, string t, int iPrev)
 		{
-		    for(int i = 0; i < t.length(); ++i)
+		    for(int i = (iPrev+1); i < t.length(); ++i)
 		    {
-		        if(ch == t.at(i) && i > iPrev)
+		        if(ch == t.at(i))
 		            return i;
 		    }
 		    return -1;
