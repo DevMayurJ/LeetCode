@@ -24,35 +24,26 @@ class Solution
 	public:
 		bool isSubsequence(string s, string t) 
 		{
-		    bool bFlag = true;
-		    int i = 0;
-		    int iPos = 0, iPrevCharPos = -1;
+		   bool bFlag = false;
+		   int iTpointer=0, iSpointer=0;
 		  
-		    if(s == "" && t == "")
-            		return bFlag;
+		   if(s.length() == 0)
+            		return true;
 			
-		    while(i < s.length())
-		    {
-		        iPos = SearchCharInString(s.at(i), t, iPrevCharPos);
-		        if(iPos == -1 )
-		        {
-		            bFlag = false;
-		            break;
-		        }
-		        iPrevCharPos = iPos;
-		        ++i;
-		    }       
+		   while(iTpointer < t.length())
+		   {
+		        if(s.at(iSpointer) == t.at(iTpointer))
+                	{
+                     	     iSpointer++;
+			     if(iSpointer == s.length())
+			     {
+				 bFlag=true;
+				 break;
+			     }
+			}
+                	++iTpointer;
+		  }       
 		    return bFlag;
-		}
-		
-		int SearchCharInString(char ch, string t, int iPrev)
-		{
-		    for(int i = (iPrev+1); i < t.length(); ++i)
-		    {
-		        if(ch == t.at(i))
-		            return i;
-		    }
-		    return -1;
 		}
 };
 
