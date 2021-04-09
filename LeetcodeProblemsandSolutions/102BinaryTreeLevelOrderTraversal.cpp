@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
-
+#include <queue>
+//#include <pair>
 using namespace std;
 
 //Definition for a binary tree node.
@@ -79,6 +80,51 @@ class Solution
 					}
 				}
 			*/
+
+			//Second Solution
+			vector<vector<int>> levelOrder_MJ(TreeNode* root)
+			{
+				vector<vector<int>> vctRet;
+				if (root == NULL)
+				{
+					return vctRet;
+				}
+
+				queue<pair<TreeNode *, int>> q;
+				q.push(make_pair(root, 1));
+
+				vector<int> vctCurrLevel;
+				int iCurrLevel = 1;
+				while (!q.empty())
+				{
+					pair<TreeNode *, int> node = q.front();
+					q.pop();
+					if (node.first->left != NULL)
+					{
+						q.push(make_pair(node.first->left, node.second + 1));
+					}
+
+					if (node.first->right != NULL)
+					{
+						q.push(make_pair(node.first->right, node.second + 1));
+					}
+
+					if (iCurrLevel == node.second)
+					{
+						vctCurrLevel.push_back(node.first->val);
+					}
+					else
+					{
+						vctRet.push_back(vctCurrLevel);
+						vctCurrLevel.clear();
+						vctCurrLevel.push_back(node.first->val);
+						iCurrLevel++;
+					}
+				}
+
+				vctRet.push_back(vctCurrLevel);
+				return vctRet;
+			}
 };
 
 struct TreeNode* newNode(int data)
@@ -101,7 +147,7 @@ int main()
 	root->right->right = newNode(7);
 	
 	Solution objSolution;
-	vector<vector<int>> vctRet = objSolution.LevelOrderTraversal(root);
+	vector<vector<int>> vctRet = objSolution.levelOrder_MJ(root);
 	
 	// Input: root = [3,9,20,null,null,15,7]
 	// Output: [ [3], [9, 20], [15, 7] ]
