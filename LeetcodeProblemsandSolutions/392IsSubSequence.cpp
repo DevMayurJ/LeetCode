@@ -22,6 +22,26 @@ using namespace std;
 class Solution 
 {
 	public:
+		bool isSubsequence_new(string strWord, string strInputstring)
+		{
+			int i = 0, j = 0;
+			int m = strInputstring.length(), n = strWord.length();
+
+			while (i < m && j < n)
+			{
+				if (strInputstring[i] == strWord[j])
+				{
+					++i;
+					++j;
+				}
+				else
+				{
+					++i;
+				}
+			}
+
+			return j == n;
+		}
 
 		bool isSubsequence_MJ(string s, string t)
 		{
@@ -96,6 +116,7 @@ int main()
 		cout<<"Input: s = \""<<vctTest[i]<<"\""<<" t = \""<<vctInpString[i]<<"\""<<endl;
 		cout<<"Output: "<<objSolution.isSubsequence(vctTest[i], vctInpString[i])<<endl;
 		cout << "Output_MJ: " << objSolution.isSubsequence_MJ(vctTest[i], vctInpString[i]) << endl;
+		cout << "Output_Easy_MJ: " << objSolution.isSubsequence_new(vctTest[i], vctInpString[i]) << endl;
 	} 
 }
 
