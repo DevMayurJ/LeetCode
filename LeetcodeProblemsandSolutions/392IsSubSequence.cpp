@@ -22,6 +22,32 @@ using namespace std;
 class Solution 
 {
 	public:
+
+		bool isSubsequence_MJ(string s, string t)
+		{
+			int i;
+			int j = -1;
+			for (i = 0; i < s.size(); ++i)
+			{
+				++j;
+				for (; j < t.size(); ++j)
+				{
+					if (s[i] == t[j])
+					{
+						break;
+					}
+				}
+
+				if (j == t.size())
+				{
+					return false;
+				}
+			}
+
+			return true;
+
+		}
+
 		bool isSubsequence(string s, string t) 
 		{
 		   bool bFlag = false;
@@ -69,6 +95,7 @@ int main()
 	{
 		cout<<"Input: s = \""<<vctTest[i]<<"\""<<" t = \""<<vctInpString[i]<<"\""<<endl;
 		cout<<"Output: "<<objSolution.isSubsequence(vctTest[i], vctInpString[i])<<endl;
+		cout << "Output_MJ: " << objSolution.isSubsequence_MJ(vctTest[i], vctInpString[i]) << endl;
 	} 
 }
 
