@@ -14,6 +14,23 @@ using namespace std;
 class Solution 
 {
 		public:
+			vector<int> replaceElements_Optimum(vector<int>& arr)
+			{
+				int len = arr.size();
+				int iMax = -1;
+				for (int i = len - 1; i >= 0; i--)
+				{
+					int iCurr = arr[i];
+					arr[i] = iMax;
+					if (iMax < iCurr)
+					{
+						iMax = iCurr;
+					}
+				}
+
+				return arr;
+			}
+
 			vector<int> replaceElements(vector<int>& vctNums) 
 			{
 				int i;
@@ -33,7 +50,7 @@ class Solution
 				return vctNums;
 			}
 			
-				vector<int> replaceElements_MJ(vector<int>& arr)
+	vector<int> replaceElements_MJ(vector<int>& arr)
 	{
 		vector<int> vctRet;
 
@@ -83,10 +100,16 @@ int main()
 			cout<<"\b\b]"<<endl;
 
 			vctOutput = objSolution.replaceElements(it);
-
 			cout<<"Output: [ ";
 			printArray(vctOutput);
 			cout<<"\b\b]"<<endl;
+
+			vctOutput = objSolution.replaceElements_Optimum(it);
+			cout << "Output_Optimum: [ ";
+			printArray(vctOutput);
+			cout << "\b\b]" << endl;
+
+
 		}
 		return 0;
 }
