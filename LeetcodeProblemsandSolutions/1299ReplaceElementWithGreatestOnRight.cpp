@@ -32,6 +32,28 @@ class Solution
 				vctNums[iSize - 1] = -1;
 				return vctNums;
 			}
+			
+				vector<int> replaceElements_MJ(vector<int>& arr)
+	{
+		vector<int> vctRet;
+
+		for (int i = 0; i < arr.size() - 1; ++i)
+		{
+			int iMax = arr[i + 1];
+			for (int j = i + 1; j < arr.size(); ++j)
+			{
+				if (arr[j] > iMax)
+				{
+					iMax = arr[j];
+				}
+			}
+
+			vctRet.push_back(iMax);
+		}
+
+		vctRet.push_back(-1);
+		return vctRet;
+	}
 };
 
 void printArray(vector<int> vctArr)
