@@ -40,7 +40,7 @@ TreeNode* newNode(int data)
 
 class Solution {
 public:
-	bool hasPathSum(TreeNode* root, int targetSum)
+	bool hasPathSum_MJ(TreeNode* root, int targetSum)
 	{
 		if (NULL == root)
 		{
@@ -72,6 +72,19 @@ public:
 		}
 
 		return false;
+	}
+
+	bool hasPathSum(TreeNode* root, int targetSum)
+	{
+		if (!root) return false;
+
+		if (!root->left && !root->right)
+		{
+			return targetSum == root->val;
+		}
+
+		int remaining = targetSum - root->val;
+		return hasPathSum(root->left, remaining) || hasPathSum(root->right, remaining);
 	}
 };
 
@@ -114,12 +127,14 @@ int main()
 	cout << "Input Binary Tree: ";
 	PrintTree(root);
 	Solution objSolution;
-	cout << "\nOutput: " << objSolution.hasPathSum(root, 6);
+	cout << "\nOutput MJ: " << objSolution.hasPathSum_MJ(root, 6);
+	cout << "\nOutput recursion: " << objSolution.hasPathSum(root, 6);
 	return 0;
 }
 
 /*
 Input Binary Tree:      [3]     [2]     [4]     [1]     [4]     [2]     [3]
-Output: 1
+Output MJ: 1
+Output recursion: 1
 */
 
