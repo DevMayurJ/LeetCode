@@ -19,7 +19,7 @@ using namespace std;
 class Solution 
 {
     public:
-        int hammingWeight(unsigned int n) 
+        int hammingWeight_SD(unsigned int n) 
         {
             int iCnt = 0;
             unsigned int iMask = 0x0000001;
@@ -37,6 +37,18 @@ class Solution
 
             return iCnt;
         }
+
+		int hammingWeight(uint32_t n)
+		{
+			int iCnt = 0;
+			while (n)
+			{
+				iCnt += n % 2;
+				n >>= 1;
+			}
+
+			return iCnt;
+		}
 };
 
 
@@ -48,8 +60,10 @@ int main()
 	
 	for(auto it:vctInput)
 	{
+		iRet = objSolution.hammingWeight_SD(it);
+		cout<<endl<<"Input: "<<it<<endl<<"Output SD: [ "<<iRet<<" ]"<<endl;
 		iRet = objSolution.hammingWeight(it);
-		cout<<endl<<"Input: "<<it<<endl<<"Output: [ "<<iRet<<" ]"<<endl;
+		cout << "Output MJ: [ " << iRet << " ]" << endl;
 	}
 	return 0;
 }
