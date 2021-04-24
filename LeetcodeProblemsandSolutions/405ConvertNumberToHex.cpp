@@ -38,7 +38,7 @@ class Solution
             	// iNum & iMask will give index of its Hex representation from strHex
             	// then store Hex in strResult
                 strResult = strHex[iNum & iMask] + strResult;	
-                // Left shift by 4 bits to get next nibble
+                // Right shift by 4 bits to get next nibble
                 iNum = iNum >> 4; 
             }
             
