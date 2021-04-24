@@ -41,6 +41,42 @@ public:
 
 		return true;
 	}
+	
+	bool hasAlternatingBits_SD(int iNum) 
+	{
+		unsigned int iMask = 0x00000001;
+		int iCurr = 0, iPrev = -1;
+
+		while(iNum > 0)
+		{ 
+			// Check if current bit is ON or OFF
+			if(((iNum & iMask) == iMask))
+			{
+				iCurr = 1;
+			}
+			else 
+			{
+				iCurr = 0;
+			}
+
+			if(iCurr == iPrev)
+			{
+				break;
+			}
+
+			iPrev = iCurr;
+			// So that we don't check all 32 bits when not needed
+			iNum = iNum >> 1;	// Same as iNum = iNum / 2;
+		}
+		if(iNum > 0)
+		{
+			return false;
+		}
+		else
+		{
+			return true;
+		}
+	}
 };
 
 int main()
@@ -52,36 +88,48 @@ int main()
 	for (auto it : vctInput)
 	{
 		boRet = objSolution.hasAlternatingBits(it);
-		cout << endl << "Input: " << it << endl << "Output : [ " << boRet << " ]" << endl;
+		cout << endl << "Input: " << it << endl << "Output MJ: [ " << boRet << " ]" << endl;
+		boRet = objSolution.hasAlternatingBits_SD(it);
+		cout<< "Output SD: [ " << boRet << " ]" << endl;
 	}
 	return 0;
 }
 
 /*
 Input: 5
-Output : [ 1 ]
+Output MJ: [ 1 ]
+Output SD: [ 1 ]
 
 Input: 11
-Output : [ 0 ]
+Output MJ: [ 0 ]
+Output SD: [ 0 ]
 
 Input: 2
-Output : [ 1 ]
+Output MJ: [ 1 ]
+Output SD: [ 1 ]
 
 Input: 16
-Output : [ 0 ]
+Output MJ: [ 0 ]
+Output SD: [ 0 ]
 
 Input: 12
-Output : [ 0 ]
+Output MJ: [ 0 ]
+Output SD: [ 0 ]
 
 Input: 7
-Output : [ 0 ]
+Output MJ: [ 0 ]
+Output SD: [ 0 ]
 
 Input: 9
-Output : [ 0 ]
+Output MJ: [ 0 ]
+Output SD: [ 0 ]
 
 Input: 3
-Output : [ 0 ]
+Output MJ: [ 0 ]
+Output SD: [ 0 ]
 
 Input: 256
-Output : [ 0 ]
+Output MJ: [ 0 ]
+Output SD: [ 0 ]
+
 */
