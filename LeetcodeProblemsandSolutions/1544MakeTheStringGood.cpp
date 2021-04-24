@@ -11,7 +11,6 @@
 
 #include<iostream>
 #include<string>
-#include<ctype.h>
 #include<vector>
 
 using namespace std;
