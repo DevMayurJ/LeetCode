@@ -11,58 +11,85 @@ using namespace std;
 
 class Solution
 {
-              void mergeSort(vector<int>& arr, int l, int r)
-	      {
-		    if (l < r) 
-		    {
-		        int m = l + (r - l) / 2;
-
-		        mergeSort(arr, l, m);
-		        mergeSort(arr, m + 1, r);
-
-		        merge(arr, l, m, r);
-		    }
-		}
-		
-		void merge(vector<int>&  arr, int iStart, int iMid, int end)
-	        {
-		    int iStart2 = iMid + 1;
-
-		    if (arr[iMid] <= arr[iStart2])
-		    {
-		        return;
-		    }
-
-		    while (iStart <= iMid && iStart2 <= end) 
-		    {
-		        if (arr[iStart] <= arr[iStart2])
-		        {
-		            iStart++;
-		        }
-		        else 
-		        {
-		            int iValue = arr[iStart2];
-		            int i = iStart2;
-
-		            while (i != iStart)
-                            {
-		                arr[i] = arr[i - 1];
-		                i--;
-		            }
-		            arr[iStart] = iValue;
-
-		            iStart++;
-		            iMid++;
-		            iStart2++;
-		        }
-		    }
-		}
-	public:
-		void sortColors(vector<int>& vctNums) 
+	void mergeSort(vector<int>& arr, int l, int r)
+	{
+		if (l < r) 
 		{
-			// We'll just use merge sort as it is an in-place algorithm
-		    mergeSort(vctNums,0,vctNums.size() - 1);
+			int m = l + (r - l) / 2;
+
+			mergeSort(arr, l, m);
+			mergeSort(arr, m + 1, r);
+
+			merge(arr, l, m, r);
 		}
+	}
+
+	void merge(vector<int>&  arr, int iStart, int iMid, int end)
+	{
+		int iStart2 = iMid + 1;
+
+		if (arr[iMid] <= arr[iStart2])
+		{
+		    return;
+		}
+
+		while (iStart <= iMid && iStart2 <= end) 
+		{
+		    if (arr[iStart] <= arr[iStart2])
+		    {
+		        iStart++;
+		    }
+		    else 
+		    {
+		        int iValue = arr[iStart2];
+		        int i = iStart2;
+
+		        while (i != iStart)
+                        {
+		            arr[i] = arr[i - 1];
+		            i--;
+		        }
+		        arr[iStart] = iValue;
+
+		        iStart++;
+		        iMid++;
+		        iStart2++;
+		    }
+		}
+	}
+
+	public:
+	void sortColors_SD(vector<int>& vctNums) 
+	{
+		// We'll just use merge sort as it is an in-place algorithm
+		mergeSort(vctNums,0,vctNums.size() - 1);
+	}
+
+	void sortColors_MJ(vector<int>& vctNums)
+	{
+		int iZero = 0;
+		int iCurr = 0;
+		int iTwo = vctNums.size() - 1;
+		while (iCurr <= iTwo)
+		{
+			if (vctNums[iCurr] == 0)
+			{
+				std::swap(vctNums[iCurr], vctNums[iZero]);
+				++iCurr;
+				++iZero;
+			}
+			else if (vctNums[iCurr] == 2)
+			{
+				std::swap(vctNums[iCurr], vctNums[iTwo]);
+				//++iCurr; Purpose fully commented to get attention to this case
+				--iTwo;
+			}
+			else
+			{
+				++iCurr;
+			}
+		}
+	}
 };
 
 void PrintVector(vector<int> vct)
@@ -89,26 +116,36 @@ int main()
 	{
 		cout<<"Input : ";
 		PrintVector(vct);
-		
-		objSolution.sortColors(vct);
-		
-		cout<<"Output : ";
+
+		vector<int> vctInput1 = vct;
+		objSolution.sortColors_SD(vctInput1);
+
+		cout<<"Output SD: ";
+		PrintVector(vctInput1);
+
+		objSolution.sortColors_MJ(vct);
+		cout << "Output MJ : ";
 		PrintVector(vct);
 		cout<<endl;
-	}							
+	}
+
 	return 0;
 }
 
 /*
-	Input : [ 2, 0, 2, 1, 1, 0] 
-	Output : [ 0, 0, 1, 1, 2, 2] 
+Input : [ 2, 0, 2, 1, 1, 0]
+Output SD: [ 0, 0, 1, 1, 2, 2]
+Output MJ : [ 0, 0, 1, 1, 2, 2]
 
-	Input : [ 2, 0, 1] 
-	Output : [ 0, 1, 2] 
+Input : [ 2, 0, 1]
+Output SD: [ 0, 1, 2]
+Output MJ : [ 0, 1, 2]
 
-	Input : [ 0] 
-	Output : [ 0] 
+Input : [ 0]
+Output SD: [ 0]
+Output MJ : [ 0]
 
-	Input : [ 1] 
-	Output : [ 1]
-	*/
+Input : [ 1]
+Output SD: [ 1]
+Output MJ : [ 1]
+*/
