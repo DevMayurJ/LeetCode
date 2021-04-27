@@ -13,8 +13,51 @@ using namespace std;
 
 class Solution 
 {
-	public:
-		string reverseWords(string strInp) 
+	void reverseString(string& s, int iStart, int iEnd)
+	{
+		if (s.empty())
+		{
+			return;
+		}
+
+		while (iStart < iEnd)
+		{
+			char chTemp = s[iStart];
+			s[iStart] = s[iEnd];
+			s[iEnd] = chTemp;
+			++iStart;
+			--iEnd;
+		}
+	}
+
+public:
+		//without using stack
+		string reverseWords_MJ(string strInp)
+		{
+			int iStart = 0;
+			int iEnd = strInp.size();
+			while (iStart < iEnd)
+			{
+				int n = iStart;
+				while (n < iEnd && strInp[n] != ' ')
+				{
+					++n;
+				}
+
+				reverseString(strInp, iStart, n - 1);
+				iStart = n;
+				if (n != iEnd)
+				{
+					strInp[iStart++] = ' ';
+				}
+			}
+
+			return strInp;
+
+		}
+
+		//with stack
+		string reverseWords_SD(string strInp)
 		{
 		    stack<char> stChar;
 		    string strResult = "";
@@ -56,21 +99,26 @@ int main()
 	
 	for(auto str : vctInput)
 	{
-		strRet = objSolution.reverseWords(str);
-		cout<<"Input: \""<<str<<"\""<<endl;
-		cout<<"Output: \""<<strRet<<"\""<<endl<<endl;
+		strRet = objSolution.reverseWords_SD(str);
+		cout<<"Input: \""<< str.c_str() <<"\""<<endl;
+		cout<<"Output(SD): \""<< strRet.c_str() <<"\""<<endl;
+		strRet = objSolution.reverseWords_MJ(str);
+		cout << "Output(MJ): \"" << strRet.c_str() << "\"" << endl << endl;
 	}
 	
 	return 0;
 }
 
 /*
-	Input: "Let's take LeetCode contest"
-	Output: "s'teL ekat edoCteeL tsetnoc"
+Input: "Let's take LeetCode contest"
+Output(SD): "s'teL ekat edoCteeL tsetnoc"
+Output(MJ): "s'teL ekat edoCteeL tsetnoc"
 
-	Input: "God Ding"
-	Output: "doG gniD"
+Input: "God Ding"
+Output(SD): "doG gniD"
+Output(MJ): "doG gniD"
 
-	Input: "Hello XYZ, hOw are you?"
-	Output: "olleH ,ZYX wOh era ?uoy"
+Input: "Hello XYZ, hOw are you?"
+Output(SD): "olleH ,ZYX wOh era ?uoy"
+Output(MJ): "olleH ,ZYX wOh era ?uoy"
 */
