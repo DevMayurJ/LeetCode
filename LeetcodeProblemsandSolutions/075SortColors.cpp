@@ -11,15 +11,8 @@ using namespace std;
 
 class Solution
 {
-	public:
-		void sortColors(vector<int>& vctNums) 
-		{
-			// We'll just use merge sort as it is an in-place algorithm
-		    mergeSort(vctNums,0,vctNums.size() - 1);
-		}
-		
-		void mergeSort(vector<int>& arr, int l, int r)
-		{
+              void mergeSort(vector<int>& arr, int l, int r)
+	      {
 		    if (l < r) 
 		    {
 		        int m = l + (r - l) / 2;
@@ -32,7 +25,7 @@ class Solution
 		}
 		
 		void merge(vector<int>&  arr, int iStart, int iMid, int end)
-		{
+	        {
 		    int iStart2 = iMid + 1;
 
 		    if (arr[iMid] <= arr[iStart2])
@@ -51,7 +44,8 @@ class Solution
 		            int iValue = arr[iStart2];
 		            int i = iStart2;
 
-		            while (i != iStart) {
+		            while (i != iStart)
+                            {
 		                arr[i] = arr[i - 1];
 		                i--;
 		            }
@@ -62,6 +56,12 @@ class Solution
 		            iStart2++;
 		        }
 		    }
+		}
+	public:
+		void sortColors(vector<int>& vctNums) 
+		{
+			// We'll just use merge sort as it is an in-place algorithm
+		    mergeSort(vctNums,0,vctNums.size() - 1);
 		}
 };
 
