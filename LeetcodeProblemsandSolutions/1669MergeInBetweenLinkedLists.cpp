@@ -28,8 +28,32 @@ struct ListNode
 
 class Solution
 {
+	// Returns the node at given position
+        // If position not specified then returns the last node  
+	ListNode* getNode(ListNode* list, int n = -1)
+	{
+	    	ListNode *temp = list;
+		    
+	    	if(n == -1)
+	    	{
+			while(NULL != temp->next)
+			{
+				temp = temp->next;
+			}
+	    	}
+	    	else
+            	{
+		        int i = 0;
+		        while(i < n)
+		        {
+		            temp = temp->next;
+		            ++i;
+		        }
+	    	}
+		return temp;
+	}
 public:
-	ListNode* mergeInBetween(ListNode* list1, int a, int b, ListNode* list2)
+	ListNode* mergeInBetween_MJ(ListNode* list1, int a, int b, ListNode* list2)
 	{
 		if (list1 == NULL)
 		{
@@ -75,6 +99,27 @@ public:
 
 		return list1;
 	}
+	
+	ListNode* mergeInBetween_SD(ListNode* list1, int a, int b, ListNode* list2) 
+	{
+		if(NULL != list1 && NULL != list2)
+		{
+			// Get last node of 2nd list
+			ListNode* p = getNode(list2);
+			
+			// Get a'th Node
+			ListNode* nodeA = getNode(list1, a - 1);
+				    
+			// We have already traversed the list till nodeA
+			// So now we only need to move forward [(b + 1) - a] positions
+			ListNode* nodeB = getNode(nodeA, ((b + 1) - a));
+				    
+			nodeA->next = list2;
+			p->next = nodeB->next;
+			nodeB->next = NULL;
+		}
+		return list1;
+	}
 };
 
 ListNode* push(ListNode* head, int data)
@@ -117,17 +162,27 @@ int main()
 	cout << "\nGiven linked list \n";
 	print(headB);
 
-	cout << "\nOutput:\n";
 	Solution obSolution;
-	ListNode *output = obSolution.mergeInBetween(headA, 3, 4, headB);
+	
+	cout << "\nOutput(MJ):[";
+	ListNode *output = obSolution.mergeInBetween_MJ(headA, 3, 4, headB);
 	print(output);
+	cout<<"]"<<endl;
+	
+	/* There is no point in calling the function again because on first call the original lists will be changed
+	
+	cout<<"\nOutput(SD):[ ";
+	ListNode *output = obSolution.mergeInBetween_SD(headA, 3, 4, headB);
+	print(output);
+	cout<<"]"<<endl;
+	*/
 }
 
 /*
-Given linked list
-0 1 2 3 4 5
-Given linked list
-1000000 1000001 1000002
-Output:
-0 1 2 1000000 1000001 1000002 5
+	Given linked list 
+	0 1 2 3 4 5 
+	Given linked list 
+	1000000 1000001 1000002 
+	Output(SD):[ 0 1 2 1000000 1000001 1000002 5 ]
+	Output(MJ):[0 1 2 1000000 1000001 1000002 5 ]
 */
