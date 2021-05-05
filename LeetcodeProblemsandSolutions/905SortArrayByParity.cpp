@@ -26,7 +26,7 @@ class Solution
 			
 			while(iCurr < iEnd)
 			{
-				if((vctNums[iCurr] % 2 == 0) && (vctNums[iEnd] % 2 == 0))
+				if((vctNums[iCurr] % 2 == 0))
 				{
 					++iCurr;
 				}
