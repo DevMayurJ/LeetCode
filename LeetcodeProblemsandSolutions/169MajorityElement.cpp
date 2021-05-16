@@ -53,6 +53,31 @@ class Solution
 			} 
 			return iFreqNum;
     	}
+
+		int majorityElement_moorsAlgo(vector<int>& vctNums)
+		{
+			//for n/2 occurence we can use moors algorithm
+			int iElement;
+			int iCount = 0;
+			for (auto iNum : vctNums)
+			{
+				if (0 == iCount)
+				{
+					iElement = iNum;
+				}
+
+				if (iNum == iElement)
+				{
+					++iCount;
+				}
+				else
+				{
+					--iCount;
+				}
+			}
+
+			return iElement;
+		}
 };
 
 void PrintArray(vector<int> vct)
@@ -81,22 +106,24 @@ int main()
 		PrintArray(vct);
 		
 		int iRet = objSolution.majorityElement_SD(vct);
-		
 		cout<<"Output : "<<iRet<<endl;
-	}							
+		iRet = objSolution.majorityElement_moorsAlgo(vct);
+		cout << "Output[moorsAlgo] : " << iRet << endl;
+	}
 	return 0;
 }
 
 /*
-	Input : [ 3, 2, 3, 3, 3, 2] 
+	Input : [ 3, 2, 3, 3, 3, 2]
 	Output : 3
-	
-	Input : [ 2, 2, 1, 1, 1, 2, 2, 1, 1, 1, 2] 
+	Output[moorsAlgo] : 3
+	Input : [ 2, 2, 1, 1, 1, 2, 2, 1, 1, 1, 2]
 	Output : 1
-	
-	Input : [ 3, 2, 3] 
+	Output[moorsAlgo] : 1
+	Input : [ 3, 2, 3]
 	Output : 3
-	
-	Input : [ 2, 2, 1, 1, 1, 2, 2] 
+	Output[moorsAlgo] : 3
+	Input : [ 2, 2, 1, 1, 1, 2, 2]
 	Output : 2
+	Output[moorsAlgo] : 2
 */
