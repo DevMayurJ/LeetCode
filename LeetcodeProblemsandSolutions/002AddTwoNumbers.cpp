@@ -35,16 +35,18 @@ class Solution
 	        ListNode *Last = new ListNode(0);
 	        Last->next = NULL;
 	        ListNode *Head = Last;
+	        int x = 0, y = 0;
+	        int iSum = 0, iCarry = 0;
 	        
-	        int iSum = 0;
-	        int iCarry = 0;
-	        
-	        while(num1 != NULL && num2 != NULL)
+	        while(num1 != NULL || num2 != NULL)
 	        {
 	            ListNode *newn = new ListNode(0);
 	            newn->next = NULL;
-
-	            iSum = (num1->val + num2->val) + iCarry;
+                
+                x = (num1 != NULL) ? num1->val : 0;
+	            y = (num2 != NULL) ? num2->val : 0;
+	            
+                iSum = (x + y) + iCarry;
 	            
 	            if(iSum < 10)
 	            {
@@ -58,43 +60,15 @@ class Solution
 	                iCarry = iSum / 10;
 	            }
 	            
-	            num1 = num1->next;
-	            num2 = num2->next;
+	            if(num1 != NULL)
+                    num1 = num1->next;
+	            if(num2 != NULL)
+                    num2 = num2->next;
+				
 	            Last->next = newn;
 	            Last = Last->next;
 	        }
-	        
-	        // If size of nums list is not equal
-	        // Only one of the nums list is going to be NULL
-	        if(num2 != NULL)
-	        {
-	       		num1 = num2;
-	        }
-
-	        // Add remaining digits to result along with carry if any
-	        while(num1 != NULL)
-	        {
-	            ListNode *newn = new ListNode(0);
-	            newn->next = NULL;
-
-	            iSum = (num1->val + iCarry);
-	            
-	            if(iSum < 10)
-	            {
-	                newn->val = iSum;
-	                // Erase carry to avoid use of any previous carry value
-	                iCarry = 0;
-	            }
-	            else
-	            {
-	                newn->val = iSum % 10;
-	                iCarry = iSum / 10;
-	            }
-	            num1 = num1->next;
-	            Last->next = newn;
-	            Last = Last->next;
-	        }
-	        
+	    
 	        // If there is still a carry remaining then append it to end of list
 	        if(iCarry > 0)
 	        {
