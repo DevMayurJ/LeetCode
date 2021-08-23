@@ -18,30 +18,91 @@ struct ListNode
 
 ListNode *head = NULL;
 
-class Solution {
-public:
-	// sending refrence of head is very important here
-	bool Check(ListNode* &head, ListNode *NextNode)
-	{
-		if (NULL == NextNode)
+class Solution 
+{
+	private:
+		ListNode* reverseList(ListNode *head)
 		{
-			return true;
+		    ListNode *next = NULL, *prev = NULL, *curr = head;
+		    
+		    while(curr != NULL)
+		    {
+		        next = curr->next;
+		        curr->next = prev;
+		        prev = curr;
+		        curr = next;
+		    }
+		    return prev;
 		}
 
-		bool boRet = Check(head, NextNode->next);
-		if (head->val != NextNode->val)
+	public:
+		// sending refrence of head is very important here
+		bool Check(ListNode* &head, ListNode *NextNode)
 		{
-			return false;
+			if (NULL == NextNode)
+			{
+				return true;
+			}
+
+			bool boRet = Check(head, NextNode->next);
+			if (head->val != NextNode->val)
+			{
+				return false;
+			}
+
+			head = head->next;
+			return boRet;
 		}
 
-		head = head->next;
-		return boRet;
-	}
+		bool isPalindrome(ListNode* head)
+		{
+			return Check(head, head);
+		}
+		
+		// Iterative approach
+		bool isPalindrome_SD(ListNode* head) 
+		{
+		    if(NULL == head)
+		    {
+		        return false;
+		    }
+		    
+		    ListNode *temp = head;
+		    ListNode *tempHead = head->next;
+		    
+		    // In this approach first we will first find middle of linked list
+		    // then reverse the 2nd half of list and compare data of 1st half and 2nd half
 
-	bool isPalindrome(ListNode* head)
-	{
-		return Check(head, head);
-	}
+			// Get middle of list
+		    while(tempHead != NULL && tempHead->next != NULL)
+		    {
+		        tempHead = tempHead->next->next;
+		        temp = temp->next;
+		    }
+		    
+		    temp->next = reverseList(temp->next);	// Reverse 2nd half and Append it to 1st half of list
+		    temp = temp->next;
+		    
+		    tempHead = head;
+		    
+		    // Compare data of both halves and check if palindrome or not
+		    while(temp != NULL)
+		    {
+		        if(tempHead->val != temp->val) 
+		        {
+		            break;
+		        }
+		        temp = temp->next;
+		        tempHead = tempHead->next;
+		    }
+		    
+		    if(NULL == temp)
+		    {
+		        return true;
+		    }
+		    
+		    return false;
+		}
 };
 
 void push(int data)
