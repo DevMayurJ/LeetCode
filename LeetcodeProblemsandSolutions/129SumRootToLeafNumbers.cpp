@@ -52,6 +52,18 @@ class Solution
 	        TraverseAndSum(root, 0);
 	        return iAllPathSum;
 	    }
+
+		int sumNumbers_MJ(TreeNode* root, int iSum = 0) 
+	    {
+	        if (NULL == root)
+                return 0;
+            
+            iSum = iSum * 10 + root->val;
+            if (root->left == NULL && NULL == root->right)
+                return iSum;
+            
+	        return sumNumbers_MJ(root->left, iSum) + sumNumbers_MJ(root->right, iSum);
+	    }
 };
 
 int main()
@@ -69,6 +81,9 @@ int main()
 	
 	cout<<"Input: [4,9,0,5,1]\n";	
 	cout<<"Output: "<<iSum<<endl;
+	int iSum_MJ = objSolution.sumNumbers_MJ(root);
+	
+	cout<<"Output_MJ: " << iSum_MJ <<endl;
 	
 	return 0;
 }
