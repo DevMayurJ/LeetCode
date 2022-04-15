@@ -16,11 +16,9 @@ struct ListNode
 	ListNode(int x, ListNode *next) : val(x), next(next) {}
 };
 
-ListNode *head = NULL;
-
 class Solution {
 public:
-	ListNode* reverseList(ListNode* head)
+	ListNode* reverseList_Itr(ListNode* head)
 	{
 		ListNode *curr = head;
 		ListNode *prev = NULL;
@@ -36,16 +34,30 @@ public:
 
 		return prev;
 	}
+
+	ListNode* reverseList(ListNode* head)
+	{
+		if (NULL == head || NULL == head->next)
+		{
+			return head;
+		}
+
+		ListNode* currNode = reverseList(head->next);
+		head->next->next = head;
+		head->next = NULL;
+		return currNode;
+	}
 };
 
-void push(int data)
+ListNode* push(ListNode* head, int data)
 {
 	ListNode* temp = new ListNode(data);
 	temp->next = head;
 	head = temp;
+	return head;
 }
 
-void print()
+void print(ListNode* head)
 {
 	ListNode* temp = head;
 	while (temp != NULL) {
@@ -54,23 +66,43 @@ void print()
 	}
 }
 
+ListNode* CreateList()
+{
+	ListNode* head = NULL;
+
+	head = push(head, 20);
+	head = push(head, 4);
+	head = push(head, 15);
+	head = push(head, 85);
+	return head;
+}
 
 int main()
 {
 	/* Start with the empty list */
-	push(20);
-	push(4);
-	push(15);
-	push(85);
+	ListNode* head = NULL;
+	head = CreateList();
 
 	cout << "Given linked list\n";
-	print();
+	print(head);
 
 	Solution obSolution;
 	head = obSolution.reverseList(head);
 
 	cout << "\nReversed Linked list \n";
-	print();
+	print(head);
+
+	head = NULL;
+	head = CreateList();
+
+	cout << "\nGiven linked list\n";
+	print(head);
+
+	head = obSolution.reverseList_Itr(head);
+
+	cout << "\nReversed Linked list Itrative \n";
+	print(head);
+
 	return 0;
 }
 
@@ -78,5 +110,9 @@ int main()
 Given linked list
 85 15 4 20
 Reversed Linked list
+20 4 15 85
+Given linked list
+85 15 4 20
+Reversed Linked list Itrative
 20 4 15 85
 */
