@@ -1,5 +1,6 @@
 #include <iostream>
 #include <algorithm>
+#include <queue>
 using namespace std;
 /*
  * Given a binary tree, find its maximum depth.
@@ -59,6 +60,36 @@ public:
 		int iRight = maxDepth(root->right);
 		return std::max(iLeft, iRight) + 1;
 	}
+	
+	int maxDepth(TreeNode* root)
+        {
+                if (NULL == root)
+                {
+                        return 0;
+                }
+
+                queue<TreeNode *> q;
+                int iLevel = 0;
+                q.push(root);
+                while (!q.empty())
+                {
+                        int iCurrLevelNode = q.size();
+                        for (int i = 0; i < iCurrLevelNode; ++i)
+                        {
+                                TreeNode *currNode = q.front();
+                                q.pop();
+                                if (currNode->left)
+                                        q.push(currNode->left);
+                                if (currNode->right)
+                                        q.push(currNode->right);
+                        }
+
+                        ++iLevel;
+                }
+
+                return iLevel;
+        }
+
 };
 
 int main()
