@@ -54,6 +54,30 @@ public:
 
 		return iMaxArea;
 	}
+	
+    int maxArea_sumeet(vector<int>& height) 
+    {
+        int l = 0;
+        int r = height.size() - 1;
+        int b = 0;
+        int maxarea = 0;
+        while (l < r)
+        {
+            b = min(height[l], height[r]);
+            maxarea = max (maxarea, (r - l) * b);
+            while (l < r && b >= height[l])
+            {
+                ++l;
+            }
+            
+            while (r > l && b >= height[r])
+            {
+                --r;
+            }                        
+        }
+        
+        return maxarea;
+    }
 };
 
 void printArray(vector<int> vctArr)
